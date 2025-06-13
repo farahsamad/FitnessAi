@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon, MessageCircleIcon, Quote, Sparkles } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -51,9 +52,9 @@ const HomePage = () => {
     <div className="w-full h-full ">
       <div
         className="w-full min-h-[calc(100svh-96px)] h-[calc(100svh-96px)] max-h-[1000px]
-  grid grid-cols-1 md:grid-cols-12 py-[10svh] px-7 relative"
+  grid grid-cols-1 md:grid-cols-12 py-[10svh] px-7 relative bg-[url(/images/FitnessAi.jpg)]  bg-cover bg-center bg-no-repeat md:bg-none rounded-md"
       >
-        <div className="md:col-span-8 col-span-1 h-full flex flex-col items-center md:items-baseline">
+        <div className="md:col-span-7 col-span-1 h-full flex flex-col items-center md:items-baseline ">
           <div className="w-full">
             <h1 className="uppercase text-4xl lg:text-7xl  font-bold tracking-tight text-nowrap">
               <div>Crush</div>
@@ -82,7 +83,15 @@ const HomePage = () => {
             </Button>
           </div>
         </div>
-        <div className="md:col-span-4 "></div>
+        <div className="md:col-span-5 hidden md:block ">
+          <Image
+            src={"/images/FitnessAi.jpg"}
+            alt="fitnessAi image"
+            width={500}
+            height={500}
+            className="md:w-full md:h-full  object-cover rounded-md"
+          />
+        </div>
 
         <div className="absolute bottom-0 left-0 h-12 w-12 border-l-2 border-b-2 border-blue-800"></div>
         <div className="absolute bottom-0 right-0 h-12 w-12 border-r-2 border-b-2 border-blue-800"></div>
