@@ -3,13 +3,20 @@
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { CircleUserRound } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const HeaderComponent = () => {
+  const pathname = usePathname();
+
   // const user = await checkUser();
   // console.log("header user: ", user);
   return (
-    <div className="w-full h-24 bg-gray-900 shadow-2xl px-4 flex items-center">
+    <div
+      className={`w-full h-24 bg-gray-900 shadow-2xl px-4 flex items-center ${
+        pathname === "/sign-in" || pathname === "/sign-up" ? "fixed" : ""
+      }`}
+    >
       <Link href={"/"} className="w-1/2 text-white text-lg pl-4 cursor-pointer">
         FitnessAi
       </Link>
