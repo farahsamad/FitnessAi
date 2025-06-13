@@ -145,7 +145,7 @@ export function useVapi() {
       process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
     );
 
-    // console.log("call", response);
+    console.log("call", response);
   };
 
   const stop = () => {
