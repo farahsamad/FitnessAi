@@ -1,14 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  MessageCircleIcon,
-  Quote,
-  QuoteIcon,
-  Sparkles,
-} from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, MessageCircleIcon, Quote, Sparkles } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 

@@ -3,9 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { CALL_STATUS, useVapi } from "@/hooks/useVapi";
 import { useUser } from "@clerk/nextjs";
-import { Mic, MicOff, Phone, PhoneOff, Sparkles } from "lucide-react";
+import { Mic, MicOff, Phone, PhoneOff } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 const GeneratePlanPage = () => {
@@ -13,15 +12,7 @@ const GeneratePlanPage = () => {
   const [isMicrophoneTurned, setIsMicrophoneTurned] = useState<boolean>(false);
 
   const { user } = useUser();
-  const {
-    isSpeechActive,
-    callStatus,
-    audioLevel,
-    activeTranscript,
-    messages,
-    connecting,
-    toggleCall,
-  } = useVapi();
+  const { isSpeechActive, callStatus, messages, connecting, toggleCall } = useVapi();
 
   // console.log("messages////////////////////////: ", messages);
   const messageContainerRef = useRef<HTMLDivElement | null>(null);

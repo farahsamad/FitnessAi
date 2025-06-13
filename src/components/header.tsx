@@ -1,6 +1,5 @@
 "use client";
 
-import { checkUser } from "@/lib/checkUser";
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { CircleUserRound } from "lucide-react";
 import Link from "next/link";

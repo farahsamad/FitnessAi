@@ -14,11 +14,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-interface IPlans {
-  _id: string;
-  name: string;
-  isActive: boolean;
-}
+// interface IPlans {
+//   _id: string;
+//   name: string;
+//   isActive: boolean;
+// }
 export interface Plan {
   id: string;
   name: string;
@@ -78,7 +78,7 @@ export interface Routine {
   routineExercises: string[];
 }
 
-const page = () => {
+const ProfilePage = () => {
   const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
   const [plans, setPlans] = useState<Plan[]>([]);
   const [isWorkoutSelected, setIsWorkoutSelected] = useState<boolean>(true);
@@ -348,6 +348,7 @@ ${selectedPlanId === plan.id ? "bg-blue-400" : "bg-gray-950"}
                             <AccordionContent className="flex flex-col gap-4 text-balance">
                               {dietMealDays.meals.map((meals, index, mealsArray) => (
                                 <div
+                                  key={`meals-${index}`}
                                   className={`py-3  flex justify-between ${
                                     mealsArray.length - 1 === index
                                       ? ""
@@ -386,4 +387,4 @@ ${selectedPlanId === plan.id ? "bg-blue-400" : "bg-gray-950"}
   );
 };
 
-export default page;
+export default ProfilePage;

@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth, User } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 
 export const getUserPlansById = async () => {
   try {

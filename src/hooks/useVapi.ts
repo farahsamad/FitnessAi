@@ -163,6 +163,7 @@ export function useVapi() {
       try {
         start();
       } catch (error) {
+        console.log(error);
         setConnecting(false);
 
         setCallStatus(CALL_STATUS.INACTIVE);

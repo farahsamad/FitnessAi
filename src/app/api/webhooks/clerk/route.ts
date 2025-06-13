@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
-  const signature = req.headers.get("clerk-signature");
+  //   const signature = req.headers.get("clerk-signature");
 
   // You can verify the signature here (optional but recommended)
   const event = JSON.parse(rawBody);
