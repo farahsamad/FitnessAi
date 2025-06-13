@@ -1,0 +1,104 @@
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL") 
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  image     String?
+  clerkId   String   @unique
+  Plan Plan[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Plan {
+  id        String   @id @default(cuid())
+  name      String
+  userId   String   
+  dietPlan     DietPlan[]
+  workoutPlan     WorkoutPlan[]
+  isActive      Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User  @relation(fields: [userId], references: [id])
+}
+
+model WorkoutPlan {
+  id            String        @id @default(cuid())
+  planId String
+  schedule      String[]    
+  exercises Exercises[]   
+  createdAt     DateTime      @default(now())
+
+  Plan Plan @relation(fields: [planId], references: [id])
+}
+// model DietPlan {
+//   id            String        @id @default(cuid())
+//   planId String
+//   dietMealDays DietMealDays[]
+//   dailyCalories Int
+//   createdAt     DateTime      @default(now())
+//   Plan Plan @relation(fields: [planId], references: [id])
+// }
+model DietPlan {
+  id             String          @id @default(cuid())
+  planId         String
+  dailyCalories  Int
+  createdAt      DateTime        @default(now())
+  Plan           Plan            @relation(fields: [planId], references: [id])
+  dietMealDays   DietMealDays[]  
+}
+
+// model DietMealDays {
+//   id        String     @id @default(cuid())
+//   dietPlanId String
+//   day String
+//   meals         Meal[]        // one-to-many
+//   DietPlan DietPlan @relation(fields: [dietPlanId], references: [id])
+// }
+
+model DietMealDays {
+  id           String        @id @default(cuid())
+  dietPlanId   String
+  day          String
+  DietPlan     DietPlan      @relation( fields: [dietPlanId], references: [id]) // ✅ Match relation name
+  meals        Meal[]
+}
+
+
+model Exercises {
+  id        String     @id @default(cuid())
+  workoutPlanId String
+  day       String
+  routines  Routine[]  // one-to-many
+  WorkoutPlan WorkoutPlan  @relation(fields: [workoutPlanId], references: [id])
+}
+
+model Routine {
+  id          String   @id @default(cuid())
+  exercisesId String
+  name        String
+  sets        Int?
+  reps        Int?
+  duration    String?
+  description String?
+  routineExercises   String[] // array of exercise names
+  exercises Exercises @relation(fields: [exercisesId], references: [id])
+}
+
+model Meal {
+  id     String   @id @default(cuid())
+  name   String
+  foods  String[] 
+  dietMealDayId  String
+  DietMealDays DietMealDays @relation(fields: [dietMealDayId ], references: [id])
+}

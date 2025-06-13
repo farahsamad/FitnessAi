@@ -1,103 +1,166 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Button } from "@/components/ui/button";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  MessageCircleIcon,
+  Quote,
+  QuoteIcon,
+  Sparkles,
+} from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
+
+interface ITestimony {
+  testimony: string;
+  writer: string;
+}
+
+const HomePage = () => {
+  const [testimonyIndex, setTestimonyIndex] = useState<number>(0);
+  const testimonials: ITestimony[] = [
+    {
+      testimony:
+        "I've struggled for years to find a fitness and diet plan that actually fits my busy lifestyle. This AI-powered platform completely changed that. The plans are tailored exactly to my goals and preferences, making it easy to stay motivated and consistent. It feels like having a personal coach available anytime I need. Highly recommend for anyone serious about results!",
+      writer: "Sarah M.",
+    },
+    {
+      testimony:
+        "After trying countless workout routines and diet plans with little success, this AI-driven service was a game-changer. The level of personalization blew me away — every workout and meal feels designed just for me. The progress I've made in just a few months is amazing, and I love how the AI adapts as I improve. It's perfect for anyone who wants smart, effective guidance without the guesswork.",
+      writer: "James T.",
+    },
+    {
+      testimony:
+        "What I love most about this platform is how the AI seamlessly combines fitness and nutrition into one easy-to-follow plan. It's like having a personal trainer and dietitian in my pocket 24/7. The recommendations are practical, effective, and truly sustainable, which helped me build habits that stick. I'm more confident and energized than ever before, thanks to this amazing tool.",
+      writer: "Emily R.",
+    },
+  ];
+
+  const previousTestimony = () => {
+    if (testimonyIndex === 0) {
+      setTestimonyIndex(testimonials.length - 1);
+    }
+    if (testimonyIndex > 0) {
+      setTestimonyIndex((prev) => prev - 1);
+    }
+  };
+  const nextTestimony = () => {
+    if (testimonyIndex < testimonials.length - 1) {
+      setTestimonyIndex((prev) => prev + 1);
+    }
+    if (testimonyIndex === testimonials.length - 1) {
+      setTestimonyIndex(0);
+    }
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="w-full h-full ">
+      <div
+        className="w-full min-h-[calc(100svh-96px)] h-[calc(100svh-96px)]
+ container grid grid-cols-1 md:grid-cols-12 py-[10svh] px-7 relative"
+      >
+        <div className="md:col-span-8 col-span-1 h-full flex flex-col items-center md:items-baseline">
+          <div className="w-full">
+            <h1 className="uppercase text-4xl lg:text-7xl  font-bold tracking-tight text-nowrap">
+              <div>Crush</div>
+              <div className="text-blue-900 mt-4">your goals</div>
+              <div className="mt-4">with AI crafted</div>
+              <div className="text-blue-900 mt-4">plans</div>
+            </h1>
+          </div>
+          <div className="w-full">
+            <h4 className="text-gray-500 text-lg max-w-[85%] md:max-w-[65%] text-justify pt-4">
+              AI-powered platform creates customized workout and diet plans tailored to individual
+              goals, fitness level, and lifestyle.
+            </h4>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <div className="w-full min-w-fit pt-6">
+            <Button
+              size="lg"
+              asChild
+              className=" bg-blue-900 text-white px-8 py-6 text-lg font-medium hover:bg-blue-950"
+            >
+              <Link href={"/generate-plan"} className="flex items-center font-mono">
+                Generate Your Plan
+                <Sparkles className="ml-2 size-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="md:col-span-4 "></div>
+
+        <div className="absolute bottom-0 left-0 h-12 w-12 border-l-2 border-b-2 border-blue-800"></div>
+        <div className="absolute bottom-0 right-0 h-12 w-12 border-r-2 border-b-2 border-blue-800"></div>
+      </div>
+
+      <div className=" py-12 bg-blue-950 my-14 w-full h-80 min-h-fit">
+        <div className="max-w-6xl mx-auto bg-gray-900  text-white rounded-md shadow-2xl w-3/4 px-4 py-9 border-[1px] border-blue-500">
+          <div className="text-lg text-center py-4">
+            Advanced AI delivers smart, effective plans tailored for real results.
+          </div>
+          <div className="  md:divide-y-0 md:divide-x md:divide-gray-300 text-center w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 py-4">
+            <div className="py-6 px-4">
+              <h3 className="text-4xl font-bold ">1K+</h3>
+              <p className=" mt-2">Plans Generated</p>
+            </div>
+
+            <div className="py-6 px-4">
+              <h3 className="text-4xl font-bold ">95%</h3>
+              <p className=" mt-2">User Satisfaction</p>
+            </div>
+
+            <div className="py-6 px-4">
+              <h3 className="text-4xl font-bold ">50+</h3>
+              <p className=" mt-2">Fitness Goals Covered</p>
+            </div>
+
+            <div className="py-6 px-4">
+              <h3 className="text-4xl font-bold ">24/7</h3>
+              <p className=" mt-2">AI Support Availability</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className=" py-12 w-full h-96 my-14 min-h-fit">
+        <div className=" bg-gray-950 text-white rounded-md shadow-2xl px-4 py-9 border-[1px] border-gray-900">
+          <div className="text-xl py-4">Testimonials</div>
+          <div className="mt-4 inline-flex relative h-fit">
+            <span className="text-xl">
+              <Quote className="w-5 h-5 text-gray-900 rotate-180" />
+              {/* <Quote className="w-12 h-12 text-gray-900 ml-2 " /> */}
+            </span>
+            <span className="mx-2 text-justify min-h-24">
+              {testimonials[testimonyIndex].testimony}
+            </span>
+            <span className="text-xl absolute bottom-0 right-0">
+              <Quote className="w-5 h-5 text-gray-900" />
+            </span>
+          </div>
+          <div className="relative mt-4 h-[30px]">
+            <div className="h-full flex items-center">{testimonials[testimonyIndex].writer}</div>
+            <div className="absolute flex top-0 right-10 space-x-2">
+              <ArrowLeftIcon
+                onClick={() => previousTestimony()}
+                className="py-1 px-1 border-2 cursor-pointer rounded-full w-[30px] h-[30px] hover:bg-gray-200 hover:text-blue-900"
+              />
+              <ArrowRightIcon
+                onClick={() => nextTestimony()}
+                className="py-1 px-1 border-2 cursor-pointer rounded-full w-[30px] h-[30px] hover:bg-gray-200 hover:text-blue-900"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="fixed bottom-6 right-3 w-11 h-11 bg-black rounded-full shadow-lg grid place-content-center">
+        <Link href={"/message"} className="cursor-pointer">
+          <MessageCircleIcon />
+        </Link>
+      </div>
     </div>
   );
-}
+};
+
+export default HomePage;
