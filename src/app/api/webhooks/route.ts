@@ -73,6 +73,12 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error("Webhook handling error:", error);
-    return new Response("Webhook error", { status: 400 });
+    return new Response(
+      JSON.stringify({ error: error instanceof Error ? error.message : String(error) }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }
