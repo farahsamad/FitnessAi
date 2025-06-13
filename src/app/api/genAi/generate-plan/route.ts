@@ -41,6 +41,9 @@ function validateDietPlan(plan: any) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const headers = Object.fromEntries(req.headers.entries());
+    console.log("🔍 Incoming VAPI request headers:", headers);
+    console.log("📦 Incoming VAPI request body:", body);
     console.log("body: ", body);
     const {
       age,
@@ -51,7 +54,7 @@ export async function POST(req: NextRequest) {
       fitness_goal,
       workout_days,
       fitness_level,
-      dietary_preferences,
+      dietary_restrictions,
       userId,
     } = body;
 
@@ -114,6 +117,7 @@ export async function POST(req: NextRequest) {
               "routines": [
                 {
                   "name": "Exercise Name",
+                  "description": "Exercise description"
                   "sets": 3,
                   "reps": 10
                 }
@@ -137,7 +141,7 @@ export async function POST(req: NextRequest) {
           Height: ${height}
           Weight: ${weight}
           Fitness goal: ${fitness_goal}
-          Dietary restrictions: ${dietary_preferences}
+          Dietary restrictions: ${dietary_restrictions}
           
           As a professional nutrition coach:
           - Calculate appropriate daily calorie intake based on the person's stats and goals
@@ -227,6 +231,7 @@ export async function POST(req: NextRequest) {
                 routines: {
                   create: exercise.routines.map((routine: any) => ({
                     name: routine.name,
+                    description: routine.description,
                     sets: routine.sets,
                     reps: routine.reps,
                   })),

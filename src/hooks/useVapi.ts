@@ -83,7 +83,7 @@ export function useVapi() {
     };
 
     const onMessageUpdate = (message: Message) => {
-      console.log("message", message);
+      // console.log("message", message);
       if (
         message.type === MessageTypeEnum.TRANSCRIPT &&
         message.transcriptType === TranscriptMessageTypeEnum.PARTIAL
@@ -132,9 +132,6 @@ export function useVapi() {
     setConnecting(true);
     setMessages([]);
     const fullName = user?.firstName ? `${user.firstName} ${user.lastName || ""}`.trim() : "There";
-
-    console.log("Assistant ID:", process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID);
-    console.log("Workflow ID:", process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID);
     setCallStatus(CALL_STATUS.LOADING);
     const response = await vapi.start(
       undefined,
@@ -148,7 +145,7 @@ export function useVapi() {
       process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
     );
 
-    console.log("call", response);
+    // console.log("call", response);
   };
 
   const stop = () => {

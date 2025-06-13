@@ -13,6 +13,7 @@ const GeneratePlanPage = () => {
 
   const { user } = useUser();
   const { isSpeechActive, callStatus, messages, connecting, toggleCall } = useVapi();
+  console.log("callStatus: ", callStatus);
 
   // console.log("messages////////////////////////: ", messages);
   const messageContainerRef = useRef<HTMLDivElement | null>(null);
@@ -22,7 +23,7 @@ const GeneratePlanPage = () => {
       top: document.body.scrollHeight,
       behavior: "smooth",
     });
-  }, [setIsCallStarted, messages]);
+  }, [messages]);
 
   useEffect(() => {
     if (messageContainerRef.current) {
@@ -33,11 +34,12 @@ const GeneratePlanPage = () => {
       );
     }
     console.log("//////////messageContainerRef.current");
-  }, [setIsCallStarted, messages]);
+  }, [messages]);
 
   const handleCall = () => {
     setIsCallStarted((prev) => !prev);
     toggleCall();
+    console.log("isCallStarted: ", isCallStarted);
   };
 
   const handleMicrophone = () => {
@@ -107,7 +109,7 @@ const GeneratePlanPage = () => {
             <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
             <p className="text-sm text-muted-foreground">Calling...</p>
           </div>
-        ) : isCallStarted && callStatus === CALL_STATUS.ACTIVE ? (
+        ) : callStatus === CALL_STATUS.ACTIVE ? (
           <Button
             size="lg"
             asChild
@@ -157,7 +159,7 @@ const GeneratePlanPage = () => {
           </Button>
         )}
       </div>
-      {isCallStarted && callStatus === CALL_STATUS.ACTIVE && messages.length > 0 && (
+      {callStatus === CALL_STATUS.ACTIVE && messages.length > 0 && (
         <div className="w-full h-52 my-6">
           <div
             className="h-full mx-auto w-3/4  border-[1px] border-gray-900 shadow-lg  py-2 px-4  bg-card/90 backdrop-blur-sm  rounded-xl p-4 mb-8 overflow-y-auto transition-all duration-300 scroll-smooth"
