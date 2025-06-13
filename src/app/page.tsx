@@ -50,8 +50,8 @@ const HomePage = () => {
   return (
     <div className="w-full h-full ">
       <div
-        className="w-full min-h-[calc(100svh-96px)] h-[calc(100svh-96px)]
- container grid grid-cols-1 md:grid-cols-12 py-[10svh] px-7 relative"
+        className="w-full min-h-[calc(100svh-96px)] h-[calc(100svh-96px)] max-h-[1000px]
+  grid grid-cols-1 md:grid-cols-12 py-[10svh] px-7 relative"
       >
         <div className="md:col-span-8 col-span-1 h-full flex flex-col items-center md:items-baseline">
           <div className="w-full">
