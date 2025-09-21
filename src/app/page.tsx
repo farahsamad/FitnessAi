@@ -51,12 +51,12 @@ const HomePage = () => {
   return (
     <div className="w-full h-full ">
       <div
-        className="w-full min-h-[calc(100svh-96px)] h-[calc(100svh-96px)] max-h-[1000px]
-  grid grid-cols-1 md:grid-cols-12 py-[10svh] px-7 relative bg-[url(/images/FitnessAi.jpg)]  bg-cover bg-center bg-no-repeat md:bg-none rounded-md"
+        className="w-full min-h-[600px] h-[calc(100svh-96px)] max-h-[1000px]
+  grid place-content-center grid-cols-1 md:grid-cols-12  px-7 relative bg-[url(/images/FitnessAi.jpg)]  bg-cover bg-center bg-no-repeat md:bg-none rounded-md mb-28"
       >
-        <div className="md:col-span-7 col-span-1 h-full flex flex-col items-center md:items-baseline ">
+        <div className="md:col-span-7 col-span-1 h-full md:h-[80%] ju flex flex-col items-center md:items-baseline md:mt-[10%] ">
           <div className="w-full">
-            <h1 className="uppercase text-4xl lg:text-7xl  font-bold tracking-tight text-nowrap">
+            <h1 className="uppercase text-3xl lg:text-6xl  font-bold tracking-tight text-nowrap">
               <div>Crush</div>
               <div className="text-blue-900 mt-4">your goals</div>
               <div className="mt-4">with AI crafted</div>
@@ -83,13 +83,13 @@ const HomePage = () => {
             </Button>
           </div>
         </div>
-        <div className="md:col-span-5 hidden md:block ">
+        <div className="md:col-span-5 hidden md:block md:h-[80%] h-full md:mt-[10%]">
           <Image
             src={"/images/FitnessAi.jpg"}
             alt="fitnessAi image"
             width={500}
             height={500}
-            className="md:w-full md:h-full  object-cover rounded-md"
+            className="md:w-full md:h-full object-cover rounded-md"
           />
         </div>
 
