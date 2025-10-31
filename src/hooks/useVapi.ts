@@ -145,16 +145,23 @@ export function useVapi() {
     });
 
     try {
+      // const response = await vapi.start(
+      //   undefined, // use default assistant/workflow
+      //   {
+      //     variableValues: {
+      //       username: fullName,
+      //       userId: user.id,
+      //     },
+      //   },
+      //   undefined,
+      //   process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
+      // );
+      const assistantOverrides = {
+        variableValues: { username: fullName, userId: user.id },
+      };
       const response = await vapi.start(
-        undefined, // use default assistant/workflow
-        {
-          variableValues: {
-            username: fullName,
-            userId: user.id,
-          },
-        },
-        undefined,
-        process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
+        process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!,
+        assistantOverrides
       );
 
       console.log("✅ Vapi start response:", response);
