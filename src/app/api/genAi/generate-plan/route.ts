@@ -39,6 +39,7 @@ function validateDietPlan(plan: any) {
 }
 
 export async function POST(req: NextRequest) {
+  console.log("✅ Route hit by:", req.headers.get("user-agent"));
   try {
     const body = await req.json();
     const headers = Object.fromEntries(req.headers.entries());
@@ -66,8 +67,12 @@ export async function POST(req: NextRequest) {
       where: { clerkId: userId },
     });
 
+    // if (!user) {
+    //   return NextResponse.json({ error: "User not found" }, { status: 404 });
+    // }
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      console.warn("⚠️ User not found for ID:", userId);
+      return NextResponse.json({ error: "User not found", userId }, { status: 404 });
     }
 
     // return NextResponse.json(user);

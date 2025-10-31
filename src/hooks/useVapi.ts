@@ -129,23 +129,38 @@ export function useVapi() {
   }, []);
 
   const start = async () => {
+    if (!user) {
+      console.error("No user found");
+      return;
+    }
     setConnecting(true);
     setMessages([]);
-    const fullName = user?.firstName ? `${user.firstName} ${user.lastName || ""}`.trim() : "There";
+    // const fullName = user?.firstName ? `${user.firstName} ${user.lastName || ""}`.trim() : "There";
+    const fullName = "There";
     setCallStatus(CALL_STATUS.LOADING);
-    const response = await vapi.start(
-      undefined,
-      {
-        variableValues: {
-          username: fullName,
-          userId: user?.id,
-        },
-      },
-      undefined,
-      process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
-    );
 
-    console.log("call", response);
+    console.log("🚀 Starting Vapi with vars:", {
+      username: fullName,
+      userId: user?.id,
+    });
+
+    try {
+      const response = await vapi.start(
+        undefined, // use default assistant/workflow
+        {
+          variableValues: {
+            username: fullName,
+            userId: user.id,
+          },
+        },
+        undefined,
+        process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
+      );
+
+      console.log("✅ Vapi start response:", response);
+    } catch (err) {
+      console.error("❌ Error starting Vapi call:", err);
+    }
   };
 
   const stop = () => {
