@@ -168,7 +168,7 @@ export function useVapi() {
       // );
 
       const response = await vapi.start(
-        process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!, // use default assistant/workflow
+        process.env.VAPI_ASSISTANT_ID!, // use default assistant/workflow
         {
           variableValues: {
             username: fullName,
