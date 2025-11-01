@@ -98,7 +98,7 @@ export function useVapi() {
           setActiveTranscript(null);
 
           // Check if assistant signals the call is done
-          if (message.transcript.includes("call completed")) {
+          if (message.transcript.includes("Call completed.")) {
             console.log("Assistant finished the plan, ending call...");
             stop(); // Ends the call
           }
