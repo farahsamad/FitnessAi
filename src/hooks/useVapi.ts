@@ -116,6 +116,15 @@ export function useVapi() {
     vapi.on("message", onMessageUpdate);
     vapi.on("error", onError);
 
+    // 'state' is not declared in the VapiEventNames type, cast to any and use a named handler so we can remove it later
+    const onState = (state: any) => {
+      const vars = state?.conversation?.vars;
+      if (vars) {
+        console.log("Collected variables:", vars);
+      }
+    };
+    vapi.on("state" as any, onState);
+
     return () => {
       vapi.off("speech-start", onSpeechStart);
       vapi.off("speech-end", onSpeechEnd);
@@ -124,7 +133,9 @@ export function useVapi() {
       vapi.off("volume-level", onVolumeLevel);
       vapi.off("message", onMessageUpdate);
       vapi.off("error", onError);
+      vapi.off("state" as any, onState);
     };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -144,6 +155,18 @@ export function useVapi() {
     });
 
     try {
+      // const response = await vapi.start(
+      //   process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!, // use default assistant/workflow
+      //   {
+      //     variableValues: {
+      //       username: fullName,
+      //       userId: user.id,
+      //     },
+      //   },
+      //   undefined,
+      //   process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
+      // );
+
       const response = await vapi.start(
         process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!, // use default assistant/workflow
         {
@@ -151,9 +174,7 @@ export function useVapi() {
             username: fullName,
             userId: user.id,
           },
-        },
-        undefined,
-        process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
+        }
       );
 
       console.log("✅ Vapi start response:", response);
