@@ -10,8 +10,6 @@ import React, { useEffect, useRef, useState } from "react";
 const GeneratePlanPage = () => {
   const [isCallStarted, setIsCallStarted] = useState<boolean>(false);
   const [isMicrophoneMuted, setIsMicrophoneMuted] = useState<boolean>(false); //initial state unmuted
-  // Using useRef to store the MediaStream object with the correct TypeScript type
-  const streamRef = useRef<MediaStream | null>(null);
 
   const { user } = useUser();
   const { isSpeechActive, callStatus, messages, connecting, toggleCall, muteMic, unmuteMic } =
@@ -57,54 +55,14 @@ const GeneratePlanPage = () => {
   //   });
   // };
 
-  // const handleMicrophone = () => {
-  //   setIsMicrophoneTurned((prev) => !prev);
-  //   if (isMicrophoneTurned) {
-  //     console.log("unmuteMic");
-  //     unmuteMic();
-  //   } else {
-  //     muteMic();
-  //     console.log("muteMic");
-  //   }
-  // };
-
-  useEffect(() => {
-    const getMicStream = async () => {
-      try {
-        // TypeScript recognizes 'stream' as a 'MediaStream'
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-        streamRef.current = stream;
-        console.log("Microphone access granted. Stream stored.");
-      } catch (err) {
-        console.error("Error accessing microphone:", err);
-      }
-    };
-
-    getMicStream();
-
-    // Cleanup
-    return () => {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
-      }
-    };
-  }, []);
-
   const handleMicrophone = () => {
-    if (streamRef.current) {
-      // TypeScript knows getAudioTracks() returns an array of MediaStreamTrack
-      const audioTracks: MediaStreamTrack[] = streamRef.current.getAudioTracks();
-
-      if (audioTracks.length > 0) {
-        audioTracks.forEach((track: MediaStreamTrack) => {
-          // 'track.enabled' is a boolean property that is recognized by TypeScript
-          track.enabled = !isMicrophoneMuted;
-        });
-        console.log("set mic to: ", !isMicrophoneMuted);
-        setIsMicrophoneMuted(!isMicrophoneMuted);
-      } else {
-        console.warn("No audio tracks found in the stream.");
-      }
+    setIsMicrophoneMuted((prev) => !prev);
+    if (isMicrophoneMuted) {
+      console.log("unmuteMic");
+      unmuteMic();
+    } else {
+      muteMic();
+      console.log("muteMic");
     }
   };
 

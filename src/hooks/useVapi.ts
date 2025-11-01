@@ -240,29 +240,47 @@ export function useVapi() {
   //   }
   // };
 
-  const muteMic = () => {
-    console.log("muteMic useVapi");
-    // if (!currentCall.current) return;
+  // const muteMic = () => {
+  //   console.log("muteMic useVapi");
+  //   // if (!currentCall.current) return;
 
-    const audioTracks = currentCall.current.localStream?.getAudioTracks();
-    console.log("audioTracks: ", audioTracks);
-    if (audioTracks?.length) {
-      audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = false));
-      console.log("🎙️ Mic muted");
+  //   const audioTracks = currentCall.current.localStream?.getAudioTracks();
+  //   console.log("audioTracks: ", audioTracks);
+  //   if (audioTracks?.length) {
+  //     audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = false));
+  //     console.log("🎙️ Mic muted");
+  //   }
+  // };
+
+  // const unmuteMic = () => {
+  //   console.log("unmuteMic useVapi");
+
+  //   // if (!currentCall.current) return;
+
+  //   const audioTracks = currentCall.current.localStream?.getAudioTracks();
+  //   console.log("audioTracks: ", audioTracks);
+
+  //   if (audioTracks?.length) {
+  //     audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = true));
+  //     console.log("🎙️ Mic unmuted");
+  //   }
+  // };
+
+  const muteMic = () => {
+    if (currentCall.current) {
+      vapi.setMuted(true);
+      // This mutes the audio track that Vapi is sending
+      currentCall.current.localAudioTrack.enabled = false;
+      console.log("Mic muted");
     }
   };
 
   const unmuteMic = () => {
-    console.log("unmuteMic useVapi");
+    if (currentCall.current) {
+      vapi.setMuted(false);
 
-    // if (!currentCall.current) return;
-
-    const audioTracks = currentCall.current.localStream?.getAudioTracks();
-    console.log("audioTracks: ", audioTracks);
-
-    if (audioTracks?.length) {
-      audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = true));
-      console.log("🎙️ Mic unmuted");
+      currentCall.current.localAudioTrack.enabled = true;
+      console.log("Mic unmuted");
     }
   };
 
