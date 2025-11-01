@@ -56,12 +56,14 @@ const GeneratePlanPage = () => {
   // };
 
   const handleMicrophone = () => {
+    setIsMicrophoneTurned((prev) => !prev);
     if (isMicrophoneTurned) {
+      console.log("unmuteMic");
       unmuteMic();
     } else {
       muteMic();
+      console.log("muteMic");
     }
-    setIsMicrophoneTurned((prev) => !prev);
   };
 
   return (
