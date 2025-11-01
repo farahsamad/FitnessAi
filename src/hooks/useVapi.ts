@@ -245,6 +245,7 @@ export function useVapi() {
     if (!currentCall.current) return;
 
     const audioTracks = currentCall.current.localStream?.getAudioTracks();
+    console.log("audioTracks: ", audioTracks);
     if (audioTracks?.length) {
       audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = false));
       console.log("🎙️ Mic muted");
@@ -257,6 +258,8 @@ export function useVapi() {
     if (!currentCall.current) return;
 
     const audioTracks = currentCall.current.localStream?.getAudioTracks();
+    console.log("audioTracks: ", audioTracks);
+
     if (audioTracks?.length) {
       audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = true));
       console.log("🎙️ Mic unmuted");
