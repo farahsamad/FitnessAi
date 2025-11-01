@@ -1,6 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
+import { AudioLines, Link } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -184,12 +186,24 @@ const MessagePage = () => {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
-        <button
-          onClick={sendMessage}
-          className="bg-blue-900 text-white px-4 py-2 rounded-full hover:bg-blue-800"
-        >
-          Send
-        </button>
+        {input.length > 0 ? (
+          <button
+            onClick={sendMessage}
+            className="bg-blue-900 text-white px-4 py-2 rounded-full hover:bg-blue-800"
+          >
+            Send
+          </button>
+        ) : (
+          <Button
+            size="lg"
+            asChild
+            className=" bg-blue-900 text-white px-8 py-6 text-lg font-medium hover:bg-blue-950"
+          >
+            <Link href={"/generate-plan"} className="flex items-center font-mono">
+              <AudioLines className="ml-2 size-5" />
+            </Link>
+          </Button>
+        )}
       </div>
     </div>
   );

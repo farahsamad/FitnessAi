@@ -76,7 +76,7 @@ const HomePage = () => {
               asChild
               className=" bg-blue-900 text-white px-8 py-6 text-lg font-medium hover:bg-blue-950"
             >
-              <Link href={"/generate-plan"} className="flex items-center font-mono">
+              <Link href={"/message"} className="flex items-center font-mono">
                 Generate Your Plan
                 <Sparkles className="ml-2 size-5" />
               </Link>
