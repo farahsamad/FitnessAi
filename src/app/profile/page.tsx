@@ -216,7 +216,7 @@ const ProfilePage = () => {
             <div className="text-2xl font-bold">
               Your <span className="text-blue-900">fitness</span> plans
             </div>
-            <div className="h-14 w-fit flex grow  space-x-3.5 my-4">
+            <div className="h-14 w-full flex overflow-x-auto grow  space-x-3.5 my-4 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-800 scrollbar-thumb-rounded-full scroll-smooth scrollbar-track-rounded-full">
               {plans.map((plan) => (
                 <Button
                   key={plan.id}
