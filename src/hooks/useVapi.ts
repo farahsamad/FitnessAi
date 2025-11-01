@@ -242,7 +242,7 @@ export function useVapi() {
 
   const muteMic = () => {
     console.log("muteMic useVapi");
-    if (!currentCall.current) return;
+    // if (!currentCall.current) return;
 
     const audioTracks = currentCall.current.localStream?.getAudioTracks();
     console.log("audioTracks: ", audioTracks);
@@ -255,7 +255,7 @@ export function useVapi() {
   const unmuteMic = () => {
     console.log("unmuteMic useVapi");
 
-    if (!currentCall.current) return;
+    // if (!currentCall.current) return;
 
     const audioTracks = currentCall.current.localStream?.getAudioTracks();
     console.log("audioTracks: ", audioTracks);
