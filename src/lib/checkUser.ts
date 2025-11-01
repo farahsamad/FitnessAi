@@ -3,7 +3,7 @@ import { db } from "./db";
 
 export const checkUser = async () => {
   const user = await currentUser();
-  console.log("checkUser user: ", user);
+  // console.log("checkUser user: ", user);
 
   if (!user) {
     console.log("checkUser no user");
@@ -17,7 +17,7 @@ export const checkUser = async () => {
   });
 
   if (loggedInUer) {
-    console.log("checkUser already loggedInUer: ", loggedInUer);
+    // console.log("checkUser already loggedInUer: ", loggedInUer);
     return loggedInUer;
   }
 
@@ -29,7 +29,7 @@ export const checkUser = async () => {
       image: user.imageUrl,
     },
   });
-  console.log("checkUser newUser", newUser);
+  // console.log("checkUser newUser", newUser);
 
   return newUser;
 };

@@ -5,7 +5,7 @@ export const getUserPlansById = async () => {
   try {
     const user = await auth();
     const userId = user.userId;
-    console.log("userId: ", userId);
+    // console.log("userId: ", userId);
     if (userId) {
       const userData = await db.user.findUnique({
         where: {

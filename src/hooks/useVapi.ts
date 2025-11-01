@@ -125,9 +125,9 @@ export function useVapi() {
     // 'state' is not declared in the VapiEventNames type, cast to any and use a named handler so we can remove it later
     const onState = (state: any) => {
       const vars = state?.conversation?.vars;
-      if (vars) {
-        console.log("Collected variables:", vars);
-      }
+      // if (vars) {
+      //   console.log("Collected variables:", vars);
+      // }
     };
     vapi.on("state" as any, onState);
 
@@ -155,10 +155,10 @@ export function useVapi() {
     const fullName = user?.firstName ? `${user.firstName} ${user.lastName || ""}`.trim() : "There";
     setCallStatus(CALL_STATUS.LOADING);
 
-    console.log("🚀 Starting Vapi with vars:", {
-      username: fullName,
-      userId: user?.id,
-    });
+    // console.log("🚀 Starting Vapi with vars:", {
+    //   username: fullName,
+    //   userId: user?.id,
+    // });
 
     try {
       // const response = await vapi.start(
@@ -185,7 +185,7 @@ export function useVapi() {
 
       currentCall.current = response;
 
-      console.log("✅ Vapi start response:", response);
+      // console.log("✅ Vapi start response:", response);
     } catch (err) {
       console.error("❌ Error starting Vapi call:", err);
       setConnecting(false);
@@ -213,58 +213,6 @@ export function useVapi() {
       }
     }
   };
-
-  // const muteMic = async () => {
-  //   try {
-  //     if (currentCall.current) {
-  //       await currentCall.current.muteAudio();
-  //       console.log("🎙️ Mic muted");
-  //     } else {
-  //       console.warn("No active call to mute");
-  //     }
-  //   } catch (err) {
-  //     console.error("❌ Error muting mic:", err);
-  //   }
-  // };
-
-  // const unmuteMic = async () => {
-  //   try {
-  //     if (currentCall.current) {
-  //       await currentCall.current.unmuteAudio();
-  //       console.log("🎙️ Mic unmuted");
-  //     } else {
-  //       console.warn("No active call to unmute");
-  //     }
-  //   } catch (err) {
-  //     console.error("❌ Error unmuting mic:", err);
-  //   }
-  // };
-
-  // const muteMic = () => {
-  //   console.log("muteMic useVapi");
-  //   // if (!currentCall.current) return;
-
-  //   const audioTracks = currentCall.current.localStream?.getAudioTracks();
-  //   console.log("audioTracks: ", audioTracks);
-  //   if (audioTracks?.length) {
-  //     audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = false));
-  //     console.log("🎙️ Mic muted");
-  //   }
-  // };
-
-  // const unmuteMic = () => {
-  //   console.log("unmuteMic useVapi");
-
-  //   // if (!currentCall.current) return;
-
-  //   const audioTracks = currentCall.current.localStream?.getAudioTracks();
-  //   console.log("audioTracks: ", audioTracks);
-
-  //   if (audioTracks?.length) {
-  //     audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = true));
-  //     console.log("🎙️ Mic unmuted");
-  //   }
-  // };
 
   const muteMic = () => {
     if (currentCall.current) {

@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
-import { AudioLines, Link } from "lucide-react";
+import { ArrowUp, AudioLines } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -50,9 +51,9 @@ const MessagePage = () => {
       });
       const data = await res.json();
       const FitnessAiText = JSON.parse(data.text);
-      console.log("FitnessAi data: ", data);
-      console.log("FitnessAi data.text: ", data.text);
-      console.log("FitnessAi text.response: ", FitnessAiText.response);
+      // console.log("FitnessAi data: ", data);
+      // console.log("FitnessAi data.text: ", data.text);
+      // console.log("FitnessAi text.response: ", FitnessAiText.response);
 
       setMessages([{ sender: "FitnessAi", text: FitnessAiText.response }]);
     };
@@ -102,7 +103,7 @@ const MessagePage = () => {
 
     setUserData(updated);
 
-    console.log("userData: ", userData);
+    // console.log("userData: ", userData);
 
     const res = await fetch("/api/genAi/collect-data", {
       method: "POST",
@@ -115,21 +116,21 @@ const MessagePage = () => {
 
     const data = await res.json();
     const FitnessAiText = JSON.parse(data.text);
-    console.log("data.text: ", data.text);
-    console.log("FitnessAiText.question: ", FitnessAiText.question);
+    // console.log("data.text: ", data.text);
+    // console.log("FitnessAiText.question: ", FitnessAiText.question);
     setMessages((prev) => [
       ...prev,
       { sender: "FitnessAi", text: FitnessAiText.question || FitnessAiText.next_question },
     ]);
     setInput("");
     if (data.text.includes("Thanks! I now have all I need to generate your plan.")) {
-      console.log("userData after: ", userData);
-      console.log(
-        "JSON.stringify userData after : ",
-        JSON.stringify({
-          userData,
-        })
-      );
+      // console.log("userData after: ", userData);
+      // console.log(
+      //   "JSON.stringify userData after : ",
+      //   JSON.stringify({
+      //     userData,
+      //   })
+      // );
       const res = await fetch("/api/genAi/generate-plan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -149,7 +150,7 @@ const MessagePage = () => {
           router.push("/profile");
         }, 1000);
       }
-      console.log("PlanRes: ", plansRes);
+      // console.log("PlanRes: ", plansRes);
     }
   };
 
@@ -189,20 +190,16 @@ const MessagePage = () => {
         {input.length > 0 ? (
           <button
             onClick={sendMessage}
-            className="bg-blue-900 text-white px-4 py-2 rounded-full hover:bg-blue-800"
+            className="bg-blue-900 text-white  rounded-full hover:bg-blue-800"
           >
-            Send
+            <ArrowUp className="!w-10 !h-10 !p-2" />
           </button>
         ) : (
-          <Button
-            size="lg"
-            asChild
-            className=" bg-blue-900 text-white px-8 py-6 text-lg font-medium hover:bg-blue-950"
-          >
-            <Link href={"/generate-plan"} className="flex items-center font-mono">
-              <AudioLines className="ml-2 size-5" />
+          <div className="w-fit h-full px-1 rounded-full grid place-content-center bg-blue-900 text-white  text-lg font-medium hover:bg-blue-950">
+            <Link href={"/generate-plan"} className=" cursor-pointer">
+              <AudioLines className="!w-9 !h-9 !p-1" />
             </Link>
-          </Button>
+          </div>
         )}
       </div>
     </div>
