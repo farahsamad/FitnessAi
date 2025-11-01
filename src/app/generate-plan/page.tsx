@@ -12,7 +12,8 @@ const GeneratePlanPage = () => {
   const [isMicrophoneTurned, setIsMicrophoneTurned] = useState<boolean>(false);
 
   const { user } = useUser();
-  const { isSpeechActive, callStatus, messages, connecting, toggleCall } = useVapi();
+  const { isSpeechActive, callStatus, messages, connecting, toggleCall, muteMic, unmuteMic } =
+    useVapi();
   console.log("callStatus: ", callStatus);
 
   // console.log("messages////////////////////////: ", messages);
@@ -43,7 +44,15 @@ const GeneratePlanPage = () => {
   };
 
   const handleMicrophone = () => {
-    setIsMicrophoneTurned((prev) => !prev);
+    setIsMicrophoneTurned((prev) => {
+      const newState = !prev;
+      if (newState) {
+        unmuteMic();
+      } else {
+        muteMic();
+      }
+      return newState;
+    });
   };
 
   return (
