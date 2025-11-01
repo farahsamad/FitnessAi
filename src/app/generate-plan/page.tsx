@@ -43,16 +43,25 @@ const GeneratePlanPage = () => {
     console.log("isCallStarted: ", isCallStarted);
   };
 
+  // const handleMicrophone = () => {
+  //   setIsMicrophoneTurned((prev) => {
+  //     const newState = !prev;
+  //     if (newState) {
+  //       unmuteMic();
+  //     } else {
+  //       muteMic();
+  //     }
+  //     return newState;
+  //   });
+  // };
+
   const handleMicrophone = () => {
-    setIsMicrophoneTurned((prev) => {
-      const newState = !prev;
-      if (newState) {
-        unmuteMic();
-      } else {
-        muteMic();
-      }
-      return newState;
-    });
+    if (isMicrophoneTurned) {
+      unmuteMic();
+    } else {
+      muteMic();
+    }
+    setIsMicrophoneTurned((prev) => !prev);
   };
 
   return (

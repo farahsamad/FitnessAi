@@ -96,6 +96,12 @@ export function useVapi() {
           const newMessage = { content: message.transcript, role: message.role };
           setMessages((prev) => [...prev, newMessage]);
           setActiveTranscript(null);
+
+          // Check if assistant signals the call is done
+          if (message.transcript.includes("call completed")) {
+            console.log("Assistant finished the plan, ending call...");
+            stop(); // Ends the call
+          }
         }
       }
     };
@@ -208,29 +214,49 @@ export function useVapi() {
     }
   };
 
-  const muteMic = async () => {
-    try {
-      if (currentCall.current) {
-        await currentCall.current.muteAudio();
-        console.log("🎙️ Mic muted");
-      } else {
-        console.warn("No active call to mute");
-      }
-    } catch (err) {
-      console.error("❌ Error muting mic:", err);
+  // const muteMic = async () => {
+  //   try {
+  //     if (currentCall.current) {
+  //       await currentCall.current.muteAudio();
+  //       console.log("🎙️ Mic muted");
+  //     } else {
+  //       console.warn("No active call to mute");
+  //     }
+  //   } catch (err) {
+  //     console.error("❌ Error muting mic:", err);
+  //   }
+  // };
+
+  // const unmuteMic = async () => {
+  //   try {
+  //     if (currentCall.current) {
+  //       await currentCall.current.unmuteAudio();
+  //       console.log("🎙️ Mic unmuted");
+  //     } else {
+  //       console.warn("No active call to unmute");
+  //     }
+  //   } catch (err) {
+  //     console.error("❌ Error unmuting mic:", err);
+  //   }
+  // };
+
+  const muteMic = () => {
+    if (!currentCall.current) return;
+
+    const audioTracks = currentCall.current.localStream?.getAudioTracks();
+    if (audioTracks?.length) {
+      audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = false));
+      console.log("🎙️ Mic muted");
     }
   };
 
-  const unmuteMic = async () => {
-    try {
-      if (currentCall.current) {
-        await currentCall.current.unmuteAudio();
-        console.log("🎙️ Mic unmuted");
-      } else {
-        console.warn("No active call to unmute");
-      }
-    } catch (err) {
-      console.error("❌ Error unmuting mic:", err);
+  const unmuteMic = () => {
+    if (!currentCall.current) return;
+
+    const audioTracks = currentCall.current.localStream?.getAudioTracks();
+    if (audioTracks?.length) {
+      audioTracks.forEach((track: MediaStreamTrack) => (track.enabled = true));
+      console.log("🎙️ Mic unmuted");
     }
   };
 
